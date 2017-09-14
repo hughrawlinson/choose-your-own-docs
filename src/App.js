@@ -1,79 +1,45 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import './App.css';
-import Page from './Page';
+import React from 'react';
+import querystring from 'querystring';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import Analytics from './Analytics';
+import UI from './UI';
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-    console.log(props);
-    this.state = {
-      language: this.props.languages[0] || 'default'
-    };
-  }
+const urlHashParams = querystring.parse(window.location.hash.substr(1));
 
-  getCurrentPage() {
-    return this.props.states.find(e => e.title === this.props.currentState);
-  }
-
-  render() {
-    return (
-      <div>
-        <style>
-          {`code.language-${this.props.language.name} {
-            display: block;
-          }
-          `}
-        </style>
-        { this.props.language &&
-        (
-          <form className="form-inline">
-            <div className="form-group">
-              <label htmlFor="languageSelect">Language</label>
-              <select
-                id="languageSelect"
-                className="form-control"
-                value={this.props.language.name}
-                onChange={(e) => {
-                    this.props.dispatch({type: "SET_LANGUAGE", to: e.target.value})
-                }}>
-                {this.props.languages.map(language => (
-                  <option key={language.name} value={language.name}>{language.name}</option>
-                ))}
-              </select>
-            </div>
-          </form>
-        )
+function App (props) {
+  let store = createStore((state = props.initialState, action) => {
+    switch (action.type) {
+      case '@@INIT':
+        return {
+          ...state,
+          currentState: state.initialState || (s => s && s[0] && s[0].title)(state.states),
+          language: (l => l && l[0])(state.languages)
         }
-      <button type="button" className="btn btn-outline-primary btn-sm" onClick={() => {
-          this.props.dispatch({type: "SET_CURRENT_PAGE", to: this.props.initialState});
-      }}>home</button>
-      <h1 className="title">{this.props.title}</h1>
-      <Page {...this.getCurrentPage()} setCurrentPage={(link) => this.props.dispatch({
-          type: "SET_CURRENT_PAGE",
-          to: link
-      })} />
-      </div>
-    );
-  }
+      case 'SET_CURRENT_PAGE':
+        return {
+          ...state,
+          currentState: action.to
+        };
+      case 'SET_LANGUAGE':
+        return {
+          ...state,
+          language: state.languages.find(language => language.name === action.to)
+        };
+      default:
+        return state;
+    }
+  }, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+
+  return (
+    <div className="container">
+      <Provider store={store}>
+        { urlHashParams.display && urlHashParams.display === "analytics"
+            ? <Analytics />
+            : <UI /> }
+      </Provider>
+    </div>
+  );
 }
 
-const mapStateToProps = state => {
-  return {
-    languages: [],
-    ...state
-  };
-}
-
-const mapDispatchToProps = dispatch => {
-  return {
-    dispatch: dispatch
-  }
-}
-
-const VisibleTodoList = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(App);
-
-export default VisibleTodoList;
+export default App;

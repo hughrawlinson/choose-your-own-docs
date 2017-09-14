@@ -1,10 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
-import { createStore } from 'redux';
 import './index.css';
 import App from './App';
-/* import App from './Analytics';*/
 import registerServiceWorker from './registerServiceWorker';
 
 const props = {
@@ -72,34 +69,7 @@ const props = {
   ]
 }
 
-let store = createStore((state = props, action) => {
-  switch (action.type) {
-    case '@@INIT':
-      return {
-        ...state,
-        currentState: state.initialState || (s => s && s[0] && s[0].title)(state.states),
-        language: (l => l && l[0])(state.languages)
-      }
-    case 'SET_CURRENT_PAGE':
-      return {
-        ...state,
-        currentState: action.to
-      };
-    case 'SET_LANGUAGE':
-      return {
-        ...state,
-        language: state.languages.find(language => language.name === action.to)
-      };
-    default:
-      return state;
-  }
-}, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
 ReactDOM.render(
-  <div className="container">
-    <Provider store={store}>
-      <App />
-    </Provider>
-  </div>
-  , document.getElementById('root'));
+  <App initialState={props} />, document.getElementById('root'));
 registerServiceWorker();
