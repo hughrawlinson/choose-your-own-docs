@@ -4,15 +4,19 @@ import Markdown from 'react-markdown';
 class Page extends Component {
   render() {
     return (
-      <div>
-        <h2>{this.props.title}</h2>
-        <Markdown source={this.props.content}/>
-        <ul>
+      <div className="card">
+        <div className="card-body">
+          <h4 className="card-title">{this.props.title}</h4>
+          <Markdown className="card-text" source={this.props.content}/>
           {this.props.edges.map(e => (
-            //TODO: onclick dispatch state change
-            <li key={e.title}><a>{ e.title }</a></li>
+            <a tabIndex="0"
+               className="card-link"
+               onClick={() => this.props.setCurrentPage(e.title)}
+               key={e.title}>
+              {e.title}
+            </a>
           ))}
-        </ul>
+        </div>
       </div>
     );
   }
