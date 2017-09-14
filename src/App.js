@@ -5,7 +5,6 @@ import { createStore } from 'redux';
 import Analytics from './Analytics';
 import UI from './UI';
 
-const urlHashParams = querystring.parse(window.location.hash.substr(1));
 
 function App (props) {
   let store = createStore((state = props.initialState, action) => {
@@ -14,7 +13,8 @@ function App (props) {
         return {
           ...state,
           currentState: state.initialState || (s => s && s[0] && s[0].title)(state.states),
-          language: (l => l && l[0])(state.languages)
+          language: (l => l && l[0])(state.languages),
+          hash: querystring.parse(window.location.hash.substr(1))
         }
       case 'SET_CURRENT_PAGE':
         return {
@@ -26,17 +26,40 @@ function App (props) {
           ...state,
           language: state.languages.find(language => language.name === action.to)
         };
+      case 'NODE_CLICK':
+        return {
+          ...state,
+          states: [
+            ...state.states.filter(state => state.title !== action.node.data.node.id),
+            {
+              ...state.states.find(state => state.title === action.node.data.node.id),
+              size: 5
+            }
+          ]
+        }
+      case 'HASH_CHANGE':
+        return {
+          ...state,
+          hash: action.hash
+        }
       default:
         return state;
     }
   }, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
+  window.addEventListener("hashchange", () => {
+    store.dispatch({
+      type: "HASH_CHANGE",
+      hash: querystring.parse(window.location.hash.substr(1))
+    });
+  }, false);
+
   return (
     <div className="container">
       <Provider store={store}>
-        { urlHashParams.display && urlHashParams.display === "analytics"
-            ? <Analytics />
-            : <UI /> }
+        { store.getState().hash.display === "analytics"
+          ? <Analytics />
+          : <UI /> }
       </Provider>
     </div>
   );

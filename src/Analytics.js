@@ -12,16 +12,28 @@ class App extends Component {
 
   render() {
     return (
-      <Sigma
-        renderer="svg"
-        settings={{
-          drawEdges: true,
-          clone: false
-        }}
-        graph={this.props.graph}>
-        <EdgeShapes default="dotted"/>
-        <Dagre rankDir="LR" />
-      </Sigma>
+      <div>
+        <button type="button" className="btn btn-outline-primary btn-sm" onClick={() => {
+            this.props.dispatch({type: "SET_CURRENT_PAGE", to: this.props.initialState});
+        }}>Live View</button>
+        <Sigma
+          renderer="svg"
+          settings={{
+            drawEdges: true,
+            clone: false
+          }}
+          onClickNode={(node) => {
+            console.log(node);
+            this.props.dispatch({
+              type: 'NODE_CLICK',
+              node: node
+            })
+          }}
+          graph={this.props.graph}>
+          <EdgeShapes default="dotted"/>
+          <Dagre rankDir="LR" />
+        </Sigma>
+      </div>
     );
   }
 }

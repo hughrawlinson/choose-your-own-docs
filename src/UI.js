@@ -4,10 +4,6 @@ import './UI.css';
 import Page from './Page';
 
 class UI extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   getCurrentPage() {
     return this.props.states.find(e => e.title === this.props.currentState);
   }
