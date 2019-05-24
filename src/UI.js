@@ -12,7 +12,9 @@ class UI extends Component {
     return (
       <div>
         <style>
-          {`code.language-${this.props.language.name} {
+          {`code.language-${
+            this.props.language && this.props.language.name
+          } {
             display: block;
           }
           `}

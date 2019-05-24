@@ -7,6 +7,9 @@ import registerServiceWorker from './registerServiceWorker';
 const props = {
   title: "Goosebumps",
   initialState: "The adventure begins",
+  // hash: {
+  //   display: 'analytics'
+  // },
   languages: [{
     name: "cURL"
   },{

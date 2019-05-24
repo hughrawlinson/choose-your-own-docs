@@ -4,7 +4,7 @@ import App from './App';
 import Page from './Page';
 
 it('renders without crashing', () => {
-  shallow(<App />);
+  shallow(<App initialState={{hash: {}}}/>);
 });
 
 it('displays a title', () => {
@@ -14,7 +14,7 @@ it('displays a title', () => {
     initialState: "intro"
   };
 
-  const wrapper = shallow(<App {...props}/>);
+  const wrapper = shallow(<App {...props} initialState={{hash:{}}}/>);
 
   expect(wrapper.contains(title)).toEqual(true);
 });

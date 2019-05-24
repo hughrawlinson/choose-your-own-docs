@@ -54,10 +54,12 @@ function App (props) {
     });
   }, false);
 
+  const state = store.getState();
+
   return (
     <div className="container">
       <Provider store={store}>
-        { store.getState().hash.display === "analytics"
+        { state.hash && state.hash.display === "analytics"
           ? <Analytics />
           : <UI /> }
       </Provider>
