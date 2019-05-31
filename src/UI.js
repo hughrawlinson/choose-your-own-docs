@@ -5,7 +5,7 @@ import Page from './Page';
 
 class UI extends Component {
   getCurrentPage() {
-    return this.props.states.find(e => e.title === this.props.currentState);
+    return this.props.states && this.props.states.find(e => e.title === this.props.currentState);
   }
 
   render() {

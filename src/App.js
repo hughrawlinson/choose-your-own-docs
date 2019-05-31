@@ -59,7 +59,7 @@ function App (props) {
   return (
     <div className="container">
       <Provider store={store}>
-        { state.hash && state.hash.display === "analytics"
+        { state && state.hash && state.hash.display === "analytics"
           ? <Analytics />
           : <UI /> }
       </Provider>
