@@ -24,7 +24,7 @@
   "devDependencies": {
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "enzyme": "^3.11.0",
-    "enzyme-adapter-react-16": "^1.15.4",
+    "enzyme-adapter-react-16": "^1.15.5",
     "react-test-renderer": "^16.13.1"
   },
   "browserslist": {
