@@ -8,7 +8,7 @@
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
     "react-markdown": "^6.0.3",
-    "react-redux": "^7.2.4",
+    "react-redux": "^7.2.5",
     "react-scripts": "^4.0.3",
     "react-sigma": "^1.2.35",
     "reactstrap": "^8.10.0",
