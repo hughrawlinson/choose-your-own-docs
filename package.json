@@ -13,7 +13,7 @@
     "react-sigma": "^1.2.35",
     "reactstrap": "^8.10.0",
     "redux": "^4.1.1",
-    "sigma": "^1.2.1"
+    "sigma": "^2.0.0"
   },
   "scripts": {
     "start": "react-scripts start",
