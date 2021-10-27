@@ -11,7 +11,7 @@
     "react-redux": "^7.2.5",
     "react-scripts": "^4.0.3",
     "react-sigma": "^1.2.35",
-    "reactstrap": "^8.10.0",
+    "reactstrap": "^8.10.1",
     "redux": "^4.1.1",
     "sigma": "^2.0.0"
   },
