@@ -7,12 +7,14 @@ class Page extends Component {
       <div className="card">
         <div className="card-body">
           <h4 className="card-title">{this.props.title}</h4>
-          <Markdown className="card-text" source={this.props.content}/>
-          {this.props.edges.map(e => (
-            <a tabIndex="0"
-               className="card-link"
-               onClick={() => this.props.setCurrentPage(e.title)}
-               key={e.title}>
+          <Markdown className="card-text">{this.props.content}</Markdown>
+          {this.props.edges.map((e) => (
+            <a
+              tabIndex="0"
+              className="card-link"
+              onClick={() => this.props.setCurrentPage(e.title)}
+              key={e.title}
+            >
               {e.title}
             </a>
           ))}
