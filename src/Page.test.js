@@ -1,48 +1,51 @@
 import React from 'react';
-import { shallow, mount, configure } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
-import Page from './Page';
-import Markdown from 'react-markdown';
+import { render } from "@testing-library/react";
+import Page from "./Page";
+import Markdown from "react-markdown";
 
-configure({ adapter: new Adapter() });
-
-it('renders without crashing', () => {
-  shallow(<Page />);
+it("renders without crashing", () => {
+  render(<Page />);
 });
 
-it.skip('displays a title', () => {
+it.skip("displays a title", () => {
   const title = <h2>An Example Page Title</h2>;
   const props = {
     title: "An Example Page Title",
   };
 
-  const wrapper = shallow(<Page {...props}/>);
+  const wrapper = render(<Page {...props} />);
 
   expect(wrapper.contains(title)).toEqual(true);
 });
 
-it.skip('displays edges in li', () => {
-  const edge = <li key="link one"><a>link one</a></li>;
+it.skip("displays edges in li", () => {
+  const edge = (
+    <li key="link one">
+      <a>link one</a>
+    </li>
+  );
   const props = {
     title: "example title",
-    edges: [{
-      title: "link one"
-    }]
+    edges: [
+      {
+        title: "link one",
+      },
+    ],
   };
 
-  const wrapper = mount(<Page {...props}/>);
+  const wrapper = render(<Page {...props} />);
 
   expect(wrapper.contains(edge)).toEqual(true);
 });
 
-it.skip('renders content into markdown plugin', () => {
-  const markdown = <Markdown source="# Content"/>;
+it.skip("renders content into markdown plugin", () => {
+  const markdown = <Markdown source="# Content" />;
   const props = {
     title: "Markdown test title",
-    content: "# Content"
+    content: "# Content",
   };
 
-  const wrapper = mount(<Page {...props}/>);
+  const wrapper = render(<Page {...props} />);
 
   expect(wrapper.contains(markdown)).toEqual(true);
 });

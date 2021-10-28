@@ -4,6 +4,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@testing-library/react": "^12.1.2",
     "ramda": "^0.27.1",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
@@ -22,10 +23,7 @@
     "eject": "react-scripts eject"
   },
   "devDependencies": {
-    "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    "enzyme": "^3.11.0",
-    "enzyme-adapter-react-16": "^1.15.6",
-    "react-test-renderer": "^16.14.0"
+    "babel-plugin-transform-object-rest-spread": "^6.26.0"
   },
   "browserslist": {
     "production": [
