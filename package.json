@@ -6,7 +6,7 @@
   "type": "module",
   "dependencies": {
     "@testing-library/react": "^12.1.2",
-    "ramda": "^0.27.2",
+    "ramda": "^0.28.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-markdown": "^6.0.3",
