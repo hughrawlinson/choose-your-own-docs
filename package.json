@@ -3,6 +3,7 @@
   "main": "./src/App.js",
   "version": "0.1.0",
   "private": true,
+  "type": "commonjs",
   "dependencies": {
     "@testing-library/react": "^12.1.2",
     "dagre": "^0.8.5",
