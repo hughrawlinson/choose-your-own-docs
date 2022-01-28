@@ -1,8 +1,8 @@
+// @ts-nocheck
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import App from "./App.js";
-import registerServiceWorker from "./registerServiceWorker.js";
+import App from "./App.tsx";
 import "dagre";
 
 const props = {
@@ -183,4 +183,3 @@ Check out our [developer showcase](#), or browse our [reference documentation](#
 };
 
 ReactDOM.render(<App initialState={props} />, document.getElementById("root"));
-registerServiceWorker();

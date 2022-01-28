@@ -1,7 +1,8 @@
+// @ts-nocheck
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import "./UI.css";
-import Page from "./Page.js";
+import Page from "./Page.tsx";
 
 class UI extends Component {
   getCurrentPage() {

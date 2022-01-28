@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { Component } from "react";
 import { chain } from "ramda";
 import { connect } from "react-redux";

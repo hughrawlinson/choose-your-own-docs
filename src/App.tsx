@@ -1,8 +1,9 @@
+// @ts-nocheck
 import React from "react";
 import { Provider, connect } from "react-redux";
 import { createStore } from "redux";
-import Analytics from "./Analytics.js";
-import UI from "./UI.js";
+import Analytics from "./Analytics.tsx";
+import UI from "./UI.tsx";
 
 const grabHashState = () => {
   return Object.fromEntries(
