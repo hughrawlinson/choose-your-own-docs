@@ -1,34 +1,42 @@
 import { chain } from "ramda";
-// @ts-ignore
-import { Sigma, EdgeShapes } from "react-sigma";
-// @ts-ignore
-import Dagre from "react-sigma/lib/Dagre.js";
 import { Block, DynamicDocument } from "..";
+import "react-sigma-v2/lib/react-sigma-v2.css";
+import { SigmaContainer, useSigma } from "react-sigma-v2";
+import forceAtlas2Layout from "graphology-layout-forceatlas2";
+import React from "react";
+
+function AnalyticsGraph({ dynamicDocument }: AnalyticsProps) {
+  const sigma = useSigma();
+  const graph = sigma.getGraph();
+  const data = prepGraph(dynamicDocument);
+  forceAtlas2Layout(graph, { iterations: 50 });
+  data.nodes.forEach((node) => {
+    const { id, label, size } = node;
+    graph.addNode(id, { label, size });
+  });
+  data.edges.forEach((edge) => {
+    const { id, source, target } = edge;
+    graph.addEdge(source, target);
+  });
+  return null;
+}
 
 interface AnalyticsProps {
   dynamicDocument: DynamicDocument;
 }
 
 export function Analytics({ dynamicDocument }: AnalyticsProps) {
-  const graph = prepGraph(dynamicDocument);
-
   return (
-    <div>
-      <a className="btn btn-outline-primary btn-sm" href="#">
-        View Narrative Document
-      </a>
-      <Sigma
-        renderer="svg"
-        settings={{
-          drawEdges: true,
-          clone: false,
-        }}
-        graph={graph}
-      >
-        <EdgeShapes default="dotted" />
-        <Dagre rankDir="LR" />
-      </Sigma>
-    </div>
+    <React.StrictMode>
+      <div>
+        <a className="btn btn-outline-primary btn-sm" href="#">
+          View Narrative Document
+        </a>
+        <SigmaContainer style={{ height: "500px", width: "500px" }}>
+          <AnalyticsGraph dynamicDocument={dynamicDocument} />
+        </SigmaContainer>
+      </div>
+    </React.StrictMode>
   );
 }
 
