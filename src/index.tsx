@@ -1,16 +1,33 @@
-// @ts-nocheck
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App.tsx";
 import "dagre";
 
-const props = {
+interface Edge {
+  title: string;
+}
+
+interface Block {
+  title: string;
+  content: string;
+  edges: Edge[];
+}
+
+interface Language {
+  name: string;
+}
+
+export interface DynamicDocument {
+  title: string;
+  initialState: string;
+  languages: Language[];
+  states: Block[];
+}
+
+const dynamicDocument: DynamicDocument = {
   title: "Get Started with our API",
   initialState: "Welcome",
-  hash: {
-    display: "analytics",
-  },
   languages: [
     {
       name: "cURL",
@@ -182,4 +199,7 @@ Check out our [developer showcase](#), or browse our [reference documentation](#
   ],
 };
 
-ReactDOM.render(<App initialState={props} />, document.getElementById("root"));
+ReactDOM.render(
+  <App dynamicDocument={dynamicDocument} />,
+  document.getElementById("root")
+);
