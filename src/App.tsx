@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
 import { DynamicDocument } from ".";
-import { Analytics } from "./Analytics.tsx";
-import { UI } from "./UI.tsx";
+import { Analytics } from "./Analytics";
+import { UI } from "./UI";
 
 const grabHashState = () => {
   return Object.fromEntries(

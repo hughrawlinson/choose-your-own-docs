@@ -1,30 +1,58 @@
-import React from "react";
 import "./UI.css";
-import Page from "./Page.tsx";
+import Page from "./Page";
 import { useReducer } from "react";
-import { DynamicDocument } from ".";
+import { DynamicDocument, Language } from ".";
 
-const reducer = (state, action) => {
+interface ReducerState {
+  dynamicDocument: DynamicDocument;
+  currentBlock: string;
+  history: string[];
+  language: Language;
+}
+
+interface HomeAction {
+  type: "HOME";
+}
+
+interface SetCurrentPageAction {
+  type: "SET_CURRENT_PAGE";
+  to: string;
+}
+
+interface SetLanguageAction {
+  type: "SET_LANGUAGE";
+  to: string;
+}
+
+type Action = HomeAction | SetCurrentPageAction | SetLanguageAction;
+
+const reducer = (state: ReducerState, action: Action): ReducerState => {
   switch (action.type) {
     case "HOME":
       return {
         ...state,
-        currentState: state.initialState || state.states?.[0]?.title,
-        history: [state.initialState || state.states?.[0]?.title],
-        language: state.languages?.[0],
+        currentBlock:
+          state.dynamicDocument.initialState ||
+          state.dynamicDocument.states?.[0]?.title,
+        history: [
+          state.dynamicDocument.initialState ||
+            state.dynamicDocument.states?.[0]?.title,
+        ],
+        language: state.dynamicDocument.languages?.[0],
       };
     case "SET_CURRENT_PAGE":
       return {
         ...state,
         history: [...state.history, action.to],
-        currentState: action.to,
+        currentBlock: action.to,
       };
     case "SET_LANGUAGE":
       return {
         ...state,
-        language: state.dynamicDocument.languages.find(
-          (language) => language.name === action.to
-        ),
+        language:
+          state.dynamicDocument.languages.find(
+            (language) => language.name === action.to
+          ) || state.language,
       };
     default:
       return state;
@@ -47,7 +75,7 @@ export function UI({ dynamicDocument }: UIProps) {
   });
 
   function getCurrentPage() {
-    return state.states?.find((e) => e.title === this.props.currentState);
+    return dynamicDocument.states?.find((e) => e.title === state.currentBlock);
   }
 
   return (
@@ -94,9 +122,11 @@ export function UI({ dynamicDocument }: UIProps) {
       <a className="btn btn-outline-primary btn-sm" href="#display=analytics">
         Graph Analytics
       </a>
-      <h1 className="title">{state.title}</h1>
+      <h1 className="title">{state.dynamicDocument.title}</h1>
       {state.history.map((pageTitle) => {
-        const page = dynamicDocument.states.find((e) => e.title === pageTitle);
+        const page = state.dynamicDocument.states.find(
+          (e) => e.title === pageTitle
+        );
         return (
           <Page
             {...page}

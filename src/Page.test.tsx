@@ -1,4 +1,4 @@
-import React from 'react';
+// @ts-nocheck
 import { render } from "@testing-library/react";
 import Page from "./Page";
 import Markdown from "react-markdown";
@@ -39,7 +39,7 @@ it.skip("displays edges in li", () => {
 });
 
 it.skip("renders content into markdown plugin", () => {
-  const markdown = <Markdown source="# Content" />;
+  const markdown = <Markdown># Content</Markdown>;
   const props = {
     title: "Markdown test title",
     content: "# Content",

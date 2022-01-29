@@ -1,10 +1,10 @@
-import React from 'react';
+// @ts-nocheck
 import { render } from "@testing-library/react";
 import App from "./App";
 import Page from "./Page";
 
 it("renders without crashing", () => {
-  render(<App initialState={{ hash: {} }} />);
+  render(<App dynamicDocument={} />);
 });
 
 it.skip("displays a title", () => {

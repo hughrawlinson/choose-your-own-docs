@@ -1,20 +1,19 @@
-import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import App from "./App.tsx";
+import App from "./App";
 import "dagre";
 
-interface Edge {
+export interface Edge {
   title: string;
 }
 
-interface Block {
+export interface Block {
   title: string;
   content: string;
   edges: Edge[];
 }
 
-interface Language {
+export interface Language {
   name: string;
 }
 

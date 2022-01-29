@@ -8,6 +8,7 @@
     "@testing-library/react": "^12.1.2",
     "@types/jest": "^27.4.0",
     "@types/node": "^17.0.13",
+    "@types/ramda": "^0.27.64",
     "@types/react": "^17.0.38",
     "@types/react-dom": "^17.0.11",
     "dagre": "^0.8.5",
@@ -26,9 +27,6 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
-  },
-  "devDependencies": {
-    "babel-plugin-transform-object-rest-spread": "^6.26.0"
   },
   "browserslist": {
     "production": [

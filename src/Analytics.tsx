@@ -1,8 +1,9 @@
-import React from "react";
 import { chain } from "ramda";
+// @ts-ignore
 import { Sigma, EdgeShapes } from "react-sigma";
+// @ts-ignore
 import Dagre from "react-sigma/lib/Dagre.js";
-import { DynamicDocument } from ".";
+import { Block, DynamicDocument } from ".";
 
 interface AnalyticsProps {
   dynamicDocument: DynamicDocument;
@@ -38,7 +39,7 @@ function prepGraph(dynamicDocument: DynamicDocument) {
       label: s.title,
       size: 3,
     })),
-    edges: chain((s) =>
+    edges: chain((s: Block) =>
       (s.edges || []).map((edge) => ({
         id: serializeName(`${s.title.split(" ").join("_")}${edge.title}`),
         source: serializeName(s.title),
@@ -48,5 +49,5 @@ function prepGraph(dynamicDocument: DynamicDocument) {
   };
 }
 
-const serializeName = (name) =>
+const serializeName = (name: string) =>
   name.split(" ").join("_").split(".").join("_").toLowerCase();
