@@ -1,5 +1,5 @@
 import Markdown from "react-markdown";
-import { Edge } from ".";
+import { Edge } from "..";
 
 interface PageProps {
   title?: string;
@@ -8,7 +8,18 @@ interface PageProps {
   edges?: Edge[];
 }
 
-function Page({ title, setCurrentPage, edges, content }: PageProps) {
+const defaultProps: PageProps = {
+  title: "UNDEFINED STATE",
+  content: "_this page has no content_",
+  edges: [],
+};
+
+export function Page({
+  title,
+  setCurrentPage,
+  edges,
+  content,
+}: PageProps = defaultProps) {
   return (
     <div className="card">
       <div className="card-body">
@@ -28,11 +39,3 @@ function Page({ title, setCurrentPage, edges, content }: PageProps) {
     </div>
   );
 }
-
-Page.defaultProps = {
-  title: "UNDEFINED STATE",
-  content: "_this page has no content_",
-  edges: [],
-};
-
-export default Page;

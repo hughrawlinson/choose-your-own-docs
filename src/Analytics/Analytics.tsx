@@ -3,7 +3,7 @@ import { chain } from "ramda";
 import { Sigma, EdgeShapes } from "react-sigma";
 // @ts-ignore
 import Dagre from "react-sigma/lib/Dagre.js";
-import { Block, DynamicDocument } from ".";
+import { Block, DynamicDocument } from "..";
 
 interface AnalyticsProps {
   dynamicDocument: DynamicDocument;

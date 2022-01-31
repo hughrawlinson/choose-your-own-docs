@@ -1,6 +1,5 @@
-// @ts-nocheck
 import { render } from "@testing-library/react";
-import Page from "./Page";
+import { Page } from ".";
 import Markdown from "react-markdown";
 
 it("renders without crashing", () => {

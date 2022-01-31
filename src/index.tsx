@@ -1,6 +1,6 @@
 import ReactDOM from "react-dom";
 import "./index.css";
-import App from "./App";
+import { App } from "./App";
 import "dagre";
 
 export interface Edge {
@@ -20,7 +20,7 @@ export interface Language {
 export interface DynamicDocument {
   title: string;
   initialState: string;
-  languages: Language[];
+  languages?: Language[];
   states: Block[];
 }
 

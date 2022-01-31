@@ -1,8 +1,7 @@
-import React, { useState } from "react";
-import { useEffect } from "react";
-import { DynamicDocument } from ".";
-import { Analytics } from "./Analytics";
-import { UI } from "./UI";
+import { useState, useEffect } from "react";
+import { DynamicDocument } from "..";
+import { Analytics } from "../Analytics";
+import { UI } from "../UI";
 
 const grabHashState = () => {
   return Object.fromEntries(
@@ -14,7 +13,7 @@ interface AppProps {
   dynamicDocument: DynamicDocument;
 }
 
-function App({ dynamicDocument }: AppProps) {
+export function App({ dynamicDocument }: AppProps) {
   let [showAnalytics, setShowAnalytics] = useState<boolean>(
     grabHashState()?.["display"] === "analytics"
   );
@@ -41,5 +40,3 @@ function App({ dynamicDocument }: AppProps) {
     </div>
   );
 }
-
-export default App;

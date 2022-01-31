@@ -1,31 +1,28 @@
-// @ts-nocheck
 import { render } from "@testing-library/react";
-import App from "./App";
-import Page from "./Page";
+import { App } from "./App";
+import { Page } from "../Page";
+import { DynamicDocument } from "..";
+
+const ExampleDynamicDocument: DynamicDocument = {
+  title: "An Example Title",
+  initialState: "intro",
+  languages: [],
+  states: [],
+};
 
 it("renders without crashing", () => {
-  render(<App dynamicDocument={} />);
+  render(<App dynamicDocument={ExampleDynamicDocument} />);
 });
 
 it.skip("displays a title", () => {
   const title = <h1 className="title">An Example Title</h1>;
-  const props = {
-    title: "An Example Title",
-    initialState: "intro",
-  };
-
-  const wrapper = render(<App {...props} initialState={{ hash: {} }} />);
+  const wrapper = render(<App dynamicDocument={ExampleDynamicDocument} />);
 
   expect(wrapper.contains(title)).toEqual(true);
 });
 
 it.skip("sets the correct initial state", () => {
-  const props = {
-    title: "Another Example title",
-    initialState: "get-started",
-  };
-
-  const wrapper = render(<App {...props} />);
+  const wrapper = render(<App dynamicDocument={ExampleDynamicDocument} />);
 
   expect(wrapper.state("pageState")).toEqual("get-started");
 });
@@ -44,7 +41,7 @@ it.skip("gets the correct initial page", () => {
     ],
   };
 
-  const wrapper = render(<App {...props} />);
+  const wrapper = render(<App dynamicDocument={ExampleDynamicDocument} />);
 
   expect(wrapper.instance().getCurrentPage()).toEqual(props.states[1]);
 });
@@ -68,7 +65,7 @@ it.skip("links to the correct states", () => {
     ],
   };
 
-  const wrapper = render(<App {...props} />);
+  const wrapper = render(<App dynamicDocument={props} />);
 
   expect(
     wrapper
@@ -90,7 +87,7 @@ it.skip("includes a Page component", () => {
 
   const page = <Page {...props.states[0]} />;
 
-  const wrapper = render(<App {...props} />);
+  const wrapper = render(<App dynamicDocument={ExampleDynamicDocument} />);
 
   expect(wrapper.contains(page)).toEqual(true);
 });

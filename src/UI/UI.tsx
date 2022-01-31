@@ -1,13 +1,13 @@
 import "./UI.css";
-import Page from "./Page";
+import { Page } from "../Page";
 import { useReducer } from "react";
-import { DynamicDocument, Language } from ".";
+import { DynamicDocument, Language } from "..";
 
 interface ReducerState {
   dynamicDocument: DynamicDocument;
   currentBlock: string;
   history: string[];
-  language: Language;
+  language?: Language;
 }
 
 interface HomeAction {
@@ -50,7 +50,7 @@ const reducer = (state: ReducerState, action: Action): ReducerState => {
       return {
         ...state,
         language:
-          state.dynamicDocument.languages.find(
+          state.dynamicDocument.languages?.find(
             (language) => language.name === action.to
           ) || state.language,
       };
@@ -59,11 +59,12 @@ const reducer = (state: ReducerState, action: Action): ReducerState => {
   }
 };
 
-interface UIProps {
+interface UIProps extends React.HTMLProps<HTMLDivElement> {
   dynamicDocument: DynamicDocument;
 }
 
-export function UI({ dynamicDocument }: UIProps) {
+export function UI(props: UIProps) {
+  const { dynamicDocument } = props;
   const [state, dispatch] = useReducer(reducer, {
     dynamicDocument,
     currentBlock:
@@ -79,7 +80,7 @@ export function UI({ dynamicDocument }: UIProps) {
   }
 
   return (
-    <div>
+    <div className={props.className} key={props.key}>
       <style>
         {`code.language-${state.language?.name} {
             display: block;
@@ -101,7 +102,7 @@ export function UI({ dynamicDocument }: UIProps) {
                 });
               }}
             >
-              {dynamicDocument.languages.map((language) => (
+              {dynamicDocument.languages?.map((language) => (
                 <option key={language.name} value={language.name}>
                   {language.name}
                 </option>
@@ -123,13 +124,17 @@ export function UI({ dynamicDocument }: UIProps) {
         Graph Analytics
       </a>
       <h1 className="title">{state.dynamicDocument.title}</h1>
-      {state.history.map((pageTitle) => {
+      {state.history.map((pageTitle, i) => {
         const page = state.dynamicDocument.states.find(
           (e) => e.title === pageTitle
         );
+        if (typeof page === "undefined") {
+          return <h2 key={i}>Linked to an invalid page</h2>;
+        }
         return (
           <Page
             {...page}
+            key={page.title}
             setCurrentPage={(link) =>
               dispatch({
                 type: "SET_CURRENT_PAGE",
