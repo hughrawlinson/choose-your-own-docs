@@ -3,21 +3,25 @@ import { Block, DynamicDocument } from "..";
 import "react-sigma-v2/lib/react-sigma-v2.css";
 import { SigmaContainer, useSigma } from "react-sigma-v2";
 import forceAtlas2Layout from "graphology-layout-forceatlas2";
-import React from "react";
+import React, { useEffect } from "react";
 
 function AnalyticsGraph({ dynamicDocument }: AnalyticsProps) {
   const sigma = useSigma();
   const graph = sigma.getGraph();
   const data = prepGraph(dynamicDocument);
-  forceAtlas2Layout(graph, { iterations: 50 });
-  data.nodes.forEach((node) => {
-    const { id, label, size } = node;
-    graph.addNode(id, { label, size });
-  });
-  data.edges.forEach((edge) => {
-    const { id, source, target } = edge;
-    graph.addEdge(source, target);
-  });
+  useEffect(() => {
+    data.nodes.forEach((node) => {
+      const { id, label, size } = node;
+      if (!graph.findNode((n) => n === id)) {
+        graph.addNode(id, { label, size, color: "#000" });
+      }
+    });
+    data.edges.forEach((edge) => {
+      const { id, source, target } = edge;
+      graph.addEdge(source, target, { id });
+    });
+    forceAtlas2Layout.assign(graph, 50);
+  }, [data]);
   return null;
 }
 
