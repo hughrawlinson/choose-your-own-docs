@@ -9,7 +9,7 @@
     "@types/jest": "^27.4.1",
     "@types/node": "^17.0.21",
     "@types/ramda": "^0.28.1",
-    "@types/react": "^17.0.40",
+    "@types/react": "^17.0.42",
     "@types/react-dom": "^17.0.13",
     "dagre": "^0.8.5",
     "ramda": "^0.28.0",
