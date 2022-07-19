@@ -21,7 +21,7 @@ export function Page({
   content,
 }: PageProps = defaultProps) {
   return (
-    <div className="card">
+    <div className="card" style={{ margin: "18px 0" }}>
       <div className="card-body">
         <h4 className="card-title">{title}</h4>
         <Markdown className="card-text">{content || ""}</Markdown>

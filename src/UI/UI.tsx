@@ -80,70 +80,82 @@ export function UI(props: UIProps) {
   }
 
   return (
-    <div className={props.className} key={props.key}>
-      <style>
-        {`code.language-${state.language?.name} {
+    <div>
+      <div
+        className={props.className}
+        key={props.key}
+        style={{ padding: "9px 0" }}
+      >
+        <style>
+          {`code.language-${state.language?.name} {
             display: block;
           }
           `}
-      </style>
-      {state.language && (
-        <form className="form-inline">
-          <div className="form-group">
-            <label htmlFor="languageSelect">Language</label>
-            <select
-              id="languageSelect"
-              className="form-control"
-              value={state.language.name}
-              onChange={(e) => {
+        </style>
+        {state.language && (
+          <form className="form-inline">
+            <div className="form-group">
+              <label htmlFor="languageSelect">Language</label>
+              <select
+                id="languageSelect"
+                className="form-control"
+                value={state.language.name}
+                onChange={(e) => {
+                  dispatch({
+                    type: "SET_LANGUAGE",
+                    to: e.target.value,
+                  });
+                }}
+              >
+                {dynamicDocument.languages?.map((language) => (
+                  <option key={language.name} value={language.name}>
+                    {language.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </form>
+        )}
+        <div style={{ margin: "18px 0" }}>
+          <button
+            type="button"
+            className="btn btn-outline-primary btn-sm"
+            onClick={() => {
+              dispatch({ type: "HOME" });
+            }}
+          >
+            Home
+          </button>
+          <a
+            className="btn btn-outline-primary btn-sm"
+            href="#display=analytics"
+          >
+            Graph Analytics
+          </a>
+        </div>
+        <h1 className="title">{state.dynamicDocument.title}</h1>
+        {state.history.map((pageTitle, i) => {
+          const page = state.dynamicDocument.states.find(
+            (e) => e.title === pageTitle
+          );
+          if (typeof page === "undefined") {
+            return <h2 key={i}>Linked to an invalid page</h2>;
+          }
+          return (
+            <Page
+              {...page}
+              key={page.title}
+              setCurrentPage={(link) =>
                 dispatch({
-                  type: "SET_LANGUAGE",
-                  to: e.target.value,
-                });
-              }}
-            >
-              {dynamicDocument.languages?.map((language) => (
-                <option key={language.name} value={language.name}>
-                  {language.name}
-                </option>
-              ))}
-            </select>
-          </div>
-        </form>
-      )}
-      <button
-        type="button"
-        className="btn btn-outline-primary btn-sm"
-        onClick={() => {
-          dispatch({ type: "HOME" });
-        }}
-      >
-        home
-      </button>
-      <a className="btn btn-outline-primary btn-sm" href="#display=analytics">
-        Graph Analytics
-      </a>
-      <h1 className="title">{state.dynamicDocument.title}</h1>
-      {state.history.map((pageTitle, i) => {
-        const page = state.dynamicDocument.states.find(
-          (e) => e.title === pageTitle
-        );
-        if (typeof page === "undefined") {
-          return <h2 key={i}>Linked to an invalid page</h2>;
-        }
-        return (
-          <Page
-            {...page}
-            key={page.title}
-            setCurrentPage={(link) =>
-              dispatch({
-                type: "SET_CURRENT_PAGE",
-                to: link,
-              })
-            }
-          />
-        );
-      })}
+                  type: "SET_CURRENT_PAGE",
+                  to: link,
+                })
+              }
+            />
+          );
+        })}
+      </div>
+      <footer>Here's the page footer</footer>
     </div>
   );
 }
