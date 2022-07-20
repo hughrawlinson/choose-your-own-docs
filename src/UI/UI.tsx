@@ -81,8 +81,58 @@ export function UI(props: UIProps) {
 
   return (
     <div>
+      <nav className="navbar navbar-expand-lg bg-light">
+        <div className="container-fluid">
+          <a className="navbar-brand">Choose your own docs</a>
+          <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+            <li className="nav-item">
+              <a
+                className="nav-link"
+                onClick={(e) => {
+                  e.preventDefault();
+                  dispatch({ type: "HOME" });
+                }}
+                href="#"
+              >
+                Home
+              </a>
+            </li>
+            <li className="nav-item">
+              <a className="nav-link" href="#display=analytics">
+                Graph Analytics
+              </a>
+            </li>
+          </ul>
+
+          {state.language && (
+            <form>
+              <div className="input-group">
+                <span className="input-group-text">Programming Language</span>
+                <select
+                  id="languageSelect"
+                  className="form-control"
+                  aria-label="Computer Language"
+                  value={state.language.name}
+                  onChange={(e) => {
+                    dispatch({
+                      type: "SET_LANGUAGE",
+                      to: e.target.value,
+                    });
+                  }}
+                >
+                  {dynamicDocument.languages?.map((language) => (
+                    <option key={language.name} value={language.name}>
+                      {language.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </form>
+          )}
+        </div>
+      </nav>
       <div
-        className={props.className}
+        className="container-md"
         key={props.key}
         style={{ padding: "9px 0" }}
       >
@@ -92,47 +142,6 @@ export function UI(props: UIProps) {
           }
           `}
         </style>
-        {state.language && (
-          <form className="form-inline">
-            <div className="form-group">
-              <label htmlFor="languageSelect">Language</label>
-              <select
-                id="languageSelect"
-                className="form-control"
-                value={state.language.name}
-                onChange={(e) => {
-                  dispatch({
-                    type: "SET_LANGUAGE",
-                    to: e.target.value,
-                  });
-                }}
-              >
-                {dynamicDocument.languages?.map((language) => (
-                  <option key={language.name} value={language.name}>
-                    {language.name}
-                  </option>
-                ))}
-              </select>
-            </div>
-          </form>
-        )}
-        <div style={{ margin: "18px 0" }}>
-          <button
-            type="button"
-            className="btn btn-outline-primary btn-sm"
-            onClick={() => {
-              dispatch({ type: "HOME" });
-            }}
-          >
-            Home
-          </button>
-          <a
-            className="btn btn-outline-primary btn-sm"
-            href="#display=analytics"
-          >
-            Graph Analytics
-          </a>
-        </div>
         <h1 className="title">{state.dynamicDocument.title}</h1>
         {state.history.map((pageTitle, i) => {
           const page = state.dynamicDocument.states.find(
@@ -155,7 +164,7 @@ export function UI(props: UIProps) {
           );
         })}
       </div>
-      <footer>Here's the page footer</footer>
+      <footer className="container">Here's the page footer</footer>
     </div>
   );
 }

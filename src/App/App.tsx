@@ -31,12 +31,12 @@ export function App({ dynamicDocument }: AppProps) {
   }, [setShowAnalytics]);
 
   return (
-    <div className="container">
+    <>
       {showAnalytics ? (
         <Analytics dynamicDocument={dynamicDocument} />
       ) : (
         <UI dynamicDocument={dynamicDocument} />
       )}
-    </div>
+    </>
   );
 }
