@@ -10,7 +10,7 @@
     "@types/node": "^18.11.3",
     "@types/ramda": "^0.28.18",
     "@types/react": "^18.0.21",
-    "@types/react-dom": "^18.0.6",
+    "@types/react-dom": "^18.0.7",
     "dagre": "^0.8.5",
     "ramda": "^0.28.0",
     "react": "^18.2.0",
