@@ -6,7 +6,7 @@
   "type": "module",
   "dependencies": {
     "@testing-library/react": "^13.4.0",
-    "@types/jest": "^29.2.1",
+    "@types/jest": "^29.2.2",
     "@types/node": "^18.11.9",
     "@types/ramda": "^0.28.18",
     "@types/react": "^18.0.24",
