@@ -15,7 +15,7 @@
     "ramda": "^0.28.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-markdown": "^8.0.3",
+    "react-markdown": "^8.0.4",
     "react-scripts": "^5.0.1",
     "react-sigma": "^1.2.35",
     "reactstrap": "^9.1.5",
